@@ -8,14 +8,14 @@ jobs:
         python: ["3.10", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python }}
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: pip install -e ".[dev]"
-      - run: pytest -q
+      - run: uv sync --locked
+      - run: uv run pytest -q
       - run: |
-          pf lint examples/demo/spec.yaml
-          pf verify examples/demo/spec.yaml --fixtures examples/demo/fixtures/demo.fixtures.json
+          uv run pf lint examples/demo/spec.yaml
+          uv run pf verify examples/demo/spec.yaml --fixtures examples/demo/fixtures/demo.fixtures.json
