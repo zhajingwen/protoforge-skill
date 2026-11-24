@@ -1,0 +1,108 @@
+# ProtoForge spec for the local demo site (examples/demo-site/server.py).
+# Started from `pf import capture.json`, then every `unknown` was resolved with
+# evidence from the upstream reverse workflow. This file is the hand-off
+# contract between "reverse engineering" and "crawler code".
+protoforge: 1
+meta:
+  name: demo_shop
+  base_url: http://127.0.0.1:8799
+  authorization: "本地演示站点（examples/demo-site），作者自有，可任意测试"
+  evidence:
+  - capture.json
+  upstream:
+    skill: hello-js-reverse-skill
+    route: R1
+    level: S1
+    scope: "demo site; /api/items and /api/search; signer algorithms verified offline against capture.json"
+transport:
+  impersonate: firefox147        # Camoufox capture => Firefox UA => Firefox TLS/H2 fingerprint
+  user_agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0
+  default_headers:
+    Accept: application/json, text/plain, */*
+    Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+  timeout: 20
+  proxy_env: PF_PROXY
+  rate_limit:
+    rps: 5
+    jitter: 0.2
+  retry:
+    max_attempts: 3
+    statuses: [429, 502, 503, 504]
+    idempotent_only: true
+session:
+  cookies_env: PF_COOKIES
+  cookie_names: [sid]
+compliance:
+  obey_robots: true
+  max_concurrency: 1
+  notes: "demo site only; 5 rps is fine locally"
+signers:
+  items_hmac:
+    kind: python
+    module: signers/items_hmac.py
+    entry: sign
+    outputs: [x_sign]
+    route: R1
+    verified: {"status": "passed", "method": "pf verify --offline", "samples": "fixtures/demo.fixtures.json", "date": "2026-11-24", "scope": "4 fixtures; ops ['items', 'search']; offline equality only (S1)"}
+  search_sign:
+    kind: node
+    module: signers/search_sign.js
+    entry: sign
+    outputs: [x_sign]
+    route: R2
+    verified: {"status": "passed", "method": "pf verify --offline", "samples": "fixtures/demo.fixtures.json", "date": "2026-11-24", "scope": "4 fixtures; ops ['items', 'search']; offline equality only (S1)"}
+operations:
+  session:
+    description: Issue a session cookie (sid) and a token bound to it
+    method: GET
+    path: /api/session
+    success: {path: code, equals: 0}
+    extract:
+      token: data.token
+  items:
+    description: Paged item list, HMAC-signed query
+    method: GET
+    path: /api/items
+    depends_on: [session]
+    query:
+      page: {source: pagination}
+      size: {source: const, value: "20"}
+      keyword: {source: input, required: false, default: "pf"}
+      ts: {source: timestamp, unit: ms, evidence: "capture #2/#3 within 50ms of request time"}
+      nonce: {source: nonce, format: hex16, evidence: "random per request; server rejects reuse (4003)"}
+      token: {source: upstream, op: session, field: token}
+    headers:
+      X-Sign: {source: signer, signer: items_hmac, output: x_sign}
+      X-Client-Ver: {source: const, value: "3.2.1"}
+    success: {path: code, equals: 0}
+    items: data.items
+    item_key: id
+    pagination:
+      mode: page
+      param: page
+      start: 1
+      has_more_path: data.has_more
+      max_pages: 20
+  search:
+    description: Cursor search, JSON body signed over canonical body
+    method: POST
+    path: /api/search
+    headers:
+      X-Sign: {source: signer, signer: search_sign, output: x_sign}
+      X-Client-Ver: {source: const, value: "3.2.1"}
+    body:
+      type: json
+      fields:
+        keyword: {source: input, required: false, default: "pf"}
+        cursor: {source: pagination, type: int, nullable: true}
+        size: {source: const, value: 10}
+        ts: {source: timestamp, unit: ms, type: int}
+        nonce: {source: nonce, format: hex16}
+    success: {path: code, equals: 0}
+    items: data.list
+    item_key: id
+    pagination:
+      mode: cursor
+      param: cursor
+      next_path: data.next_cursor
+      max_pages: 20

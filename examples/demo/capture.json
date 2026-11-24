@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "mcp_version": "demo",
+  "exported_at": 1795511143170,
+  "include_sensitive": true,
+  "include_body": true,
+  "capture": {
+    "pattern": "*",
+    "dropped_requests": 0
+  },
+  "requests": [
+    {
+      "id": 1,
+      "url": "http://127.0.0.1:8799/api/session",
+      "method": "GET",
+      "resource_type": "xhr",
+      "request_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0",
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3",
+        "Referer": "http://127.0.0.1:8799/list",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin"
+      },
+      "request_post_data": null,
+      "request_post_data_error": null,
+      "timestamp": 1795511142562,
+      "status": 200,
+      "response_headers": {
+        "Server": "pf-demo/1.0 Python/3.13.18",
+        "Date": "Tue, 24 Nov 2026 09:05:42 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "61",
+        "Set-Cookie": "sid=2a602dabf76a96ba; Path=/; HttpOnly"
+      },
+      "response_body": "{\"code\": 0, \"data\": {\"token\": \"tk_03eedaf59216\", \"ttl\": 600}}",
+      "duration": 12,
+      "state": "finished",
+      "headers_complete": true,
+      "capture_body_limit": 200000,
+      "body_state": "captured"
+    },
+    {
+      "id": 2,
+      "url": "http://127.0.0.1:8799/api/items?page=1&size=20&keyword=pf&ts=1795511142562&nonce=cf4a190a8b54b3bb&token=tk_03eedaf59216",
+      "method": "GET",
+      "resource_type": "xhr",
+      "request_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0",
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3",
+        "Referer": "http://127.0.0.1:8799/list",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "X-Sign": "951a92e69193346dfbe957224572e9d113db8f8696abbe7343212549d824dcfb",
+        "X-Client-Ver": "3.2.1",
+        "Cookie": "sid=2a602dabf76a96ba"
+      },
+      "request_post_data": null,
+      "request_post_data_error": null,
+      "timestamp": 1795511142564,
+      "status": 200,
+      "response_headers": {
+        "Server": "pf-demo/1.0 Python/3.13.18",
+        "Date": "Tue, 24 Nov 2026 09:05:42 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1315"
+      },
+      "response_body": "{\"code\": 0, \"data\": {\"items\": [{\"id\": 1, \"title\": \"pf item 1\", \"price\": 11.4, \"tag\": \"pf\"}, {\"id\": 2, \"title\": \"pf item 2\", \"price\": 12.9, \"tag\": \"pf\"}, {\"id\": 3, \"title\": \"pf item 3\", \"price\": 14.4, \"tag\": \"misc\"}, {\"id\": 4, \"title\": \"pf item 4\", \"price\": 15.9, \"tag\": \"pf\"}, {\"id\": 5, \"title\": \"pf item 5\", \"price\": 17.4, \"tag\": \"pf\"}, {\"id\": 6, \"title\": \"pf item 6\", \"price\": 18.9, \"tag\": \"misc\"}, {\"id\": 7, \"title\": \"pf item 7\", \"price\": 20.4, \"tag\": \"pf\"}, {\"id\": 8, \"title\": \"pf item 8\", \"price\": 21.9, \"tag\": \"pf\"}, {\"id\": 9, \"title\": \"pf item 9\", \"price\": 23.4, \"tag\": \"misc\"}, {\"id\": 10, \"title\": \"pf item 10\", \"price\": 24.9, \"tag\": \"pf\"}, {\"id\": 11, \"title\": \"pf item 11\", \"price\": 26.4, \"tag\": \"pf\"}, {\"id\": 12, \"title\": \"pf item 12\", \"price\": 27.9, \"tag\": \"misc\"}, {\"id\": 13, \"title\": \"pf item 13\", \"price\": 29.4, \"tag\": \"pf\"}, {\"id\": 14, \"title\": \"pf item 14\", \"price\": 30.9, \"tag\": \"pf\"}, {\"id\": 15, \"title\": \"pf item 15\", \"price\": 32.4, \"tag\": \"misc\"}, {\"id\": 16, \"title\": \"pf item 16\", \"price\": 33.9, \"tag\": \"pf\"}, {\"id\": 17, \"title\": \"pf item 17\", \"price\": 35.4, \"tag\": \"pf\"}, {\"id\": 18, \"title\": \"pf item 18\", \"price\": 36.9, \"tag\": \"misc\"}, {\"id\": 19, \"title\": \"pf item 19\", \"price\": 38.4, \"tag\": \"pf\"}, {\"id\": 20, \"title\": \"pf item 20\", \"price\": 39.9, \"tag\": \"pf\"}], \"page\": 1, \"has_more\": true}}",
+      "duration": 12,
+      "state": "finished",
+      "headers_complete": true,
+      "capture_body_limit": 200000,
+      "body_state": "captured"
+    },
+    {
+      "id": 3,
+      "url": "http://127.0.0.1:8799/api/items?page=2&size=20&keyword=pf&ts=1795511142614&nonce=0685e2268588c1ed&token=tk_03eedaf59216",
+      "method": "GET",
+      "resource_type": "xhr",
+      "request_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0",
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3",
+        "Referer": "http://127.0.0.1:8799/list",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "X-Sign": "08bf461e8b8f23f34f8352b921143567facb531c4745a1dd9b2a1e630ab70575",
+        "X-Client-Ver": "3.2.1",
+        "Cookie": "sid=2a602dabf76a96ba"
+      },
+      "request_post_data": null,
+      "request_post_data_error": null,
+      "timestamp": 1795511142616,
+      "status": 200,
+      "response_headers": {
+        "Server": "pf-demo/1.0 Python/3.13.18",
+        "Date": "Tue, 24 Nov 2026 09:05:42 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1335"
+      },
+      "response_body": "{\"code\": 0, \"data\": {\"items\": [{\"id\": 21, \"title\": \"pf item 21\", \"price\": 41.4, \"tag\": \"misc\"}, {\"id\": 22, \"title\": \"pf item 22\", \"price\": 42.9, \"tag\": \"pf\"}, {\"id\": 23, \"title\": \"pf item 23\", \"price\": 44.4, \"tag\": \"pf\"}, {\"id\": 24, \"title\": \"pf item 24\", \"price\": 45.9, \"tag\": \"misc\"}, {\"id\": 25, \"title\": \"pf item 25\", \"price\": 47.4, \"tag\": \"pf\"}, {\"id\": 26, \"title\": \"pf item 26\", \"price\": 48.9, \"tag\": \"pf\"}, {\"id\": 27, \"title\": \"pf item 27\", \"price\": 50.4, \"tag\": \"misc\"}, {\"id\": 28, \"title\": \"pf item 28\", \"price\": 51.9, \"tag\": \"pf\"}, {\"id\": 29, \"title\": \"pf item 29\", \"price\": 53.4, \"tag\": \"pf\"}, {\"id\": 30, \"title\": \"pf item 30\", \"price\": 54.9, \"tag\": \"misc\"}, {\"id\": 31, \"title\": \"pf item 31\", \"price\": 56.4, \"tag\": \"pf\"}, {\"id\": 32, \"title\": \"pf item 32\", \"price\": 57.9, \"tag\": \"pf\"}, {\"id\": 33, \"title\": \"pf item 33\", \"price\": 59.4, \"tag\": \"misc\"}, {\"id\": 34, \"title\": \"pf item 34\", \"price\": 60.9, \"tag\": \"pf\"}, {\"id\": 35, \"title\": \"pf item 35\", \"price\": 62.4, \"tag\": \"pf\"}, {\"id\": 36, \"title\": \"pf item 36\", \"price\": 63.9, \"tag\": \"misc\"}, {\"id\": 37, \"title\": \"pf item 37\", \"price\": 65.4, \"tag\": \"pf\"}, {\"id\": 38, \"title\": \"pf item 38\", \"price\": 66.9, \"tag\": \"pf\"}, {\"id\": 39, \"title\": \"pf item 39\", \"price\": 68.4, \"tag\": \"misc\"}, {\"id\": 40, \"title\": \"pf item 40\", \"price\": 69.9, \"tag\": \"pf\"}], \"page\": 2, \"has_more\": true}}",
+      "duration": 12,
+      "state": "finished",
+      "headers_complete": true,
+      "capture_body_limit": 200000,
+      "body_state": "captured"
+    },
+    {
+      "id": 4,
+      "url": "http://127.0.0.1:8799/api/search",
+      "method": "POST",
+      "resource_type": "xhr",
+      "request_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0",
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3",
+        "Referer": "http://127.0.0.1:8799/list",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "X-Sign": "90ea85369cba1bdf4ebbdc29b773606c",
+        "X-Client-Ver": "3.2.1",
+        "Content-Type": "application/json",
+        "Cookie": "sid=2a602dabf76a96ba"
+      },
+      "request_post_data": "{\"keyword\":\"pf\",\"cursor\":null,\"size\":10,\"ts\":1795511142666,\"nonce\":\"be83b7f36e508606\"}",
+      "request_post_data_error": null,
+      "timestamp": 1795511142668,
+      "status": 200,
+      "response_headers": {
+        "Server": "pf-demo/1.0 Python/3.13.18",
+        "Date": "Tue, 24 Nov 2026 09:05:42 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "668"
+      },
+      "response_body": "{\"code\": 0, \"data\": {\"list\": [{\"id\": 1, \"title\": \"pf item 1\", \"price\": 11.4, \"tag\": \"pf\"}, {\"id\": 2, \"title\": \"pf item 2\", \"price\": 12.9, \"tag\": \"pf\"}, {\"id\": 4, \"title\": \"pf item 4\", \"price\": 15.9, \"tag\": \"pf\"}, {\"id\": 5, \"title\": \"pf item 5\", \"price\": 17.4, \"tag\": \"pf\"}, {\"id\": 7, \"title\": \"pf item 7\", \"price\": 20.4, \"tag\": \"pf\"}, {\"id\": 8, \"title\": \"pf item 8\", \"price\": 21.9, \"tag\": \"pf\"}, {\"id\": 10, \"title\": \"pf item 10\", \"price\": 24.9, \"tag\": \"pf\"}, {\"id\": 11, \"title\": \"pf item 11\", \"price\": 26.4, \"tag\": \"pf\"}, {\"id\": 13, \"title\": \"pf item 13\", \"price\": 29.4, \"tag\": \"pf\"}, {\"id\": 14, \"title\": \"pf item 14\", \"price\": 30.9, \"tag\": \"pf\"}], \"next_cursor\": 10}}",
+      "duration": 12,
+      "state": "finished",
+      "headers_complete": true,
+      "capture_body_limit": 200000,
+      "body_state": "captured"
+    },
+    {
+      "id": 5,
+      "url": "http://127.0.0.1:8799/api/search",
+      "method": "POST",
+      "resource_type": "xhr",
+      "request_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0",
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3",
+        "Referer": "http://127.0.0.1:8799/list",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "X-Sign": "3f63e0aed565ad59a33e223504fc0436",
+        "X-Client-Ver": "3.2.1",
+        "Content-Type": "application/json",
+        "Cookie": "sid=2a602dabf76a96ba"
+      },
+      "request_post_data": "{\"keyword\":\"pf\",\"cursor\":10,\"size\":10,\"ts\":1795511142668,\"nonce\":\"f63d241a98c90107\"}",
+      "request_post_data_error": null,
+      "timestamp": 1795511142669,
+      "status": 200,
+      "response_headers": {
+        "Server": "pf-demo/1.0 Python/3.13.18",
+        "Date": "Tue, 24 Nov 2026 09:05:42 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "680"
+      },
+      "response_body": "{\"code\": 0, \"data\": {\"list\": [{\"id\": 16, \"title\": \"pf item 16\", \"price\": 33.9, \"tag\": \"pf\"}, {\"id\": 17, \"title\": \"pf item 17\", \"price\": 35.4, \"tag\": \"pf\"}, {\"id\": 19, \"title\": \"pf item 19\", \"price\": 38.4, \"tag\": \"pf\"}, {\"id\": 20, \"title\": \"pf item 20\", \"price\": 39.9, \"tag\": \"pf\"}, {\"id\": 22, \"title\": \"pf item 22\", \"price\": 42.9, \"tag\": \"pf\"}, {\"id\": 23, \"title\": \"pf item 23\", \"price\": 44.4, \"tag\": \"pf\"}, {\"id\": 25, \"title\": \"pf item 25\", \"price\": 47.4, \"tag\": \"pf\"}, {\"id\": 26, \"title\": \"pf item 26\", \"price\": 48.9, \"tag\": \"pf\"}, {\"id\": 28, \"title\": \"pf item 28\", \"price\": 51.9, \"tag\": \"pf\"}, {\"id\": 29, \"title\": \"pf item 29\", \"price\": 53.4, \"tag\": \"pf\"}], \"next_cursor\": 20}}",
+      "duration": 12,
+      "state": "finished",
+      "headers_complete": true,
+      "capture_body_limit": 200000,
+      "body_state": "captured"
+    }
+  ]
+}

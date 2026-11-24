@@ -1,0 +1,49 @@
+"""Offline check: rebuild captured requests and compare signer-filled fields (S1 only).
+
+usage: python verify_offline.py fixtures/<file>.json [--json]
+"""
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT))
+
+{% if target == "curl_cffi" -%}
+import api
+import pf_runtime as rt
+{%- else -%}
+from {{ name }} import api
+from {{ name }} import pf_runtime as rt
+{%- endif %}
+
+
+def main(argv: list[str]) -> int:
+    if not argv:
+        print(__doc__)
+        return 2
+    fixtures = json.loads(Path(argv[0]).read_text(encoding="utf-8"))
+    report = rt.verify_fixtures(api.OPS, api.BASE_URL, fixtures, api.PROJECT_ROOT)
+    if "--json" in argv:
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+    else:
+        for r in report["results"]:
+            mark = "PASS" if r["passed"] else "FAIL"
+            print(f"[{mark}] #{r['index']} {r['op']} capture={r.get('capture_id')}")
+            if r.get("error"):
+                print("    error:", r["error"])
+            if r.get("warning"):
+                print("    warning:", r["warning"])
+            for f in r["fields"]:
+                if not f["passed"]:
+                    m = f["mismatch"]
+                    print(f"    {f['location']}.{f['name']}: first difference at char {m['index']} "
+                          f"(expected ...{m['expected']}... got ...{m['actual']}...)")
+        print(f"{report['passed']}/{report['total']} fixtures passed")
+    return 0 if report["total"] and report["failed"] == 0 else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv[1:]))

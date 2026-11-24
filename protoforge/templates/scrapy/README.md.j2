@@ -1,0 +1,24 @@
+# {{ name }}（Scrapy 项目）
+
+由 ProtoForge {{ pf_version }} 于 {{ today }} 根据 `spec.yaml` 生成。传输层经 scrapy-impersonate 走 curl_cffi，`impersonate={{ spec.transport.impersonate }}`。
+
+- 目标：`{{ spec.meta.base_url }}`
+- 授权记录：{{ spec.meta.authorization }}
+- 限速：{{ spec.transport.rate_limit.rps }} req/s，并发 {{ compliance.get("max_concurrency", 1) }}，robots.txt {{ "遵守" if compliance.get("obey_robots", True) else "不检查（见 spec.compliance.notes）" }}
+
+## 运行
+
+```bash
+uv venv && uv pip install -r requirements.txt   # 或：pip install -r requirements.txt
+{% if spec.session and spec.session.cookies_env %}export {{ spec.session.cookies_env }}='name=value; ...'   # 如需登录态
+{% endif %}{% for n in item_ops %}uv run scrapy crawl {{ n }} -a max_pages=2        # 输出 data/{{ n }}.jsonl
+{% endfor %}uv run python verify_offline.py fixtures/<samples>.json   # 离线验签（S1）
+```
+
+## 设计要点
+
+- 依赖接口（`depends_on`）按顺序先跑，提取值放进上下文，再请求目标接口。
+- 每次重试都通过 `api.py` 重新构造请求：时间戳、nonce、签名都是新的，不重放旧签名。
+- 业务拒绝（HTTP 200 但业务码不符）关闭爬虫（`business_rejected`），不自动重试。
+- 统计里 `protoforge/counts` 把 `transport_error / rejected / target_ok` 分开计数。
+- 签名在 Twisted 线程内同步执行；node 签名器每次起一个进程，量大时改为 http 签名服务（spec 中 `kind: http`）。

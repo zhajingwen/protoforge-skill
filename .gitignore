@@ -1,0 +1,12 @@
+__pycache__/
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+# private evidence and outputs in real tasks
+captures/
+reports/
+data/
+*.private.json
+.env
+.venv/

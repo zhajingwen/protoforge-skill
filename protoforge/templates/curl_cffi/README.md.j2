@@ -1,0 +1,35 @@
+# {{ name }}（curl_cffi 协议客户端）
+
+由 [ProtoForge](https://github.com/) {{ pf_version }} 于 {{ today }} 根据 `spec.yaml` 生成。
+
+- 目标：`{{ spec.meta.base_url }}`
+- 授权记录：{{ spec.meta.authorization }}
+- 传输指纹：`impersonate={{ spec.transport.impersonate }}`，UA 与之同族同代
+- 限速：{{ spec.transport.rate_limit.rps }} req/s
+
+## 运行
+
+```bash
+uv venv && uv pip install -r requirements.txt   # 或：pip install -r requirements.txt
+{% if spec.session and spec.session.cookies_env %}export {{ spec.session.cookies_env }}='name=value; ...'   # 如需登录态
+{% endif %}uv run python main.py --list
+{% for n in item_ops %}uv run python main.py {{ n }} --max-pages 2 --out data/{{ n }}.jsonl --report reports/{{ n }}.json
+{% endfor %}```
+
+## 离线验签（S1）
+
+```bash
+uv run python verify_offline.py fixtures/<samples>.json
+```
+
+## 文件
+
+| 文件 | 说明 |
+|---|---|
+| `spec.yaml` | 唯一事实来源；改协议先改它，再 `pf gen` |
+| `api.py` | 生成的请求构造器（勿手改） |
+| `pf_runtime.py` | 通用运行时：取值来源、签名适配、限速、分页、结果分类 |
+| `signers/` | 签名实现（来自上游逆向结论） |
+| `main.py` | 命令行入口，输出 JSONL 与运行报告 |
+
+业务拒绝（HTTP 200 但业务码不符）会立即停止，不自动重试。运行报告把 `transport_error / rejected / accepted / target_ok` 分开计数。

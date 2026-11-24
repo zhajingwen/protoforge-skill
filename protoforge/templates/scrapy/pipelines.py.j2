@@ -1,0 +1,29 @@
+"""JSONL output with de-duplication by the operation's item_key."""
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+from {{ name }}.api import OPS
+
+
+class JsonlPipeline:
+    def open_spider(self, spider):
+        out_dir = Path(spider.settings.get("PF_OUTPUT_DIR", "data"))
+        out_dir.mkdir(parents=True, exist_ok=True)
+        self.path = out_dir / f"{spider.name}.jsonl"
+        self.fh = self.path.open("a", encoding="utf-8")
+        self.key = OPS[spider.op]["meta"].get("item_key")
+        self.seen = set()
+
+    def close_spider(self, spider):
+        self.fh.close()
+
+    def process_item(self, item, spider=None):
+        data = dict(item)
+        if self.key and self.key in data:
+            if data[self.key] in self.seen:
+                return item
+            self.seen.add(data[self.key])
+        self.fh.write(json.dumps(data, ensure_ascii=False) + "\n")
+        return item

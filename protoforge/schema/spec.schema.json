@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/protoforge-skill/spec.schema.json",
+  "title": "ProtoForge protocol spec v1",
+  "type": "object",
+  "required": ["protoforge", "meta", "transport", "operations"],
+  "additionalProperties": false,
+  "properties": {
+    "protoforge": {"const": 1},
+    "meta": {
+      "type": "object",
+      "required": ["name", "base_url", "authorization"],
+      "additionalProperties": true,
+      "properties": {
+        "name": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "base_url": {"type": "string", "pattern": "^https?://"},
+        "authorization": {"type": "string", "description": "Who authorized collection and under what scope. Empty string fails lint."},
+        "evidence": {"type": "array", "items": {"type": "string"}},
+        "upstream": {
+          "type": "object",
+          "properties": {
+            "skill": {"type": "string"},
+            "route": {"enum": ["R0", "R1", "R2", "R3", "R4", "R5", "R6"]},
+            "level": {"enum": ["S0", "S1", "S2", "S3", "S4"]},
+            "scope": {"type": "string"}
+          }
+        }
+      }
+    },
+    "transport": {
+      "type": "object",
+      "required": ["impersonate", "user_agent"],
+      "additionalProperties": false,
+      "properties": {
+        "impersonate": {"type": "string"},
+        "user_agent": {"type": "string"},
+        "default_headers": {"type": "object", "additionalProperties": {"type": "string"}},
+        "timeout": {"type": "number", "exclusiveMinimum": 0},
+        "proxy_env": {"type": "string"},
+        "verify_tls": {"type": "boolean"},
+        "rate_limit": {
+          "type": "object",
+          "required": ["rps"],
+          "properties": {
+            "rps": {"type": "number", "exclusiveMinimum": 0},
+            "jitter": {"type": "number", "minimum": 0}
+          }
+        },
+        "retry": {
+          "type": "object",
+          "properties": {
+            "max_attempts": {"type": "integer", "minimum": 1},
+            "statuses": {"type": "array", "items": {"type": "integer"}},
+            "idempotent_only": {"type": "boolean"}
+          }
+        }
+      }
+    },
+    "session": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cookies_env": {"type": "string"},
+        "cookie_names": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "compliance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "obey_robots": {"type": "boolean"},
+        "max_concurrency": {"type": "integer", "minimum": 1},
+        "notes": {"type": "string"}
+      }
+    },
+    "signers": {
+      "type": "object",
+      "additionalProperties": {"$ref": "#/$defs/signer"}
+    },
+    "operations": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {"pattern": "^[a-z][a-z0-9_]*$"},
+      "additionalProperties": {"$ref": "#/$defs/operation"}
+    }
+  },
+  "$defs": {
+    "signer": {
+      "type": "object",
+      "required": ["kind"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {"enum": ["python", "node", "http"]},
+        "module": {"type": "string"},
+        "entry": {"type": "string"},
+        "url_env": {"type": "string"},
+        "outputs": {"type": "array", "items": {"type": "string"}},
+        "route": {"enum": ["R1", "R2", "R3", "R4", "R5"]},
+        "verified": {
+          "type": "object",
+          "required": ["status"],
+          "properties": {
+            "status": {"enum": ["passed", "failed", "pending"]},
+            "method": {"type": "string"},
+            "samples": {"type": "string"},
+            "date": {"type": "string"},
+            "scope": {"type": "string"}
+          }
+        }
+      }
+    },
+    "field": {
+      "type": "object",
+      "required": ["source"],
+      "additionalProperties": true,
+      "properties": {
+        "source": {"enum": ["const", "input", "pagination", "timestamp", "nonce", "upstream", "env", "signer", "unknown"]},
+        "value": {"type": ["string", "number", "boolean", "null"]},
+        "required": {"type": "boolean"},
+        "default": {"type": ["string", "number", "boolean", "null"]},
+        "unit": {"enum": ["ms", "s"]},
+        "format": {"enum": ["hex8", "hex16", "hex32", "uuid4", "digits6", "digits8", "digits13"]},
+        "op": {"type": "string"},
+        "field": {"type": "string"},
+        "var": {"type": "string"},
+        "signer": {"type": "string"},
+        "output": {"type": "string"},
+        "hint": {"type": "string"},
+        "evidence": {"type": "string"}
+      }
+    },
+    "fields": {
+      "type": "object",
+      "additionalProperties": {"$ref": "#/$defs/field"}
+    },
+    "operation": {
+      "type": "object",
+      "required": ["method", "path"],
+      "additionalProperties": false,
+      "properties": {
+        "method": {"enum": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"]},
+        "path": {"type": "string", "pattern": "^/"},
+        "description": {"type": "string"},
+        "query": {"$ref": "#/$defs/fields"},
+        "headers": {"$ref": "#/$defs/fields"},
+        "body": {
+          "type": "object",
+          "required": ["type"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {"enum": ["json", "form", "none"]},
+            "fields": {"$ref": "#/$defs/fields"}
+          }
+        },
+        "depends_on": {"type": "array", "items": {"type": "string"}},
+        "extract": {"type": "object", "additionalProperties": {"type": "string"}},
+        "success": {
+          "type": "object",
+          "required": ["path"],
+          "properties": {
+            "path": {"type": "string"},
+            "equals": {},
+            "in": {"type": "array"}
+          }
+        },
+        "items": {"type": "string"},
+        "item_key": {"type": "string"},
+        "pagination": {
+          "type": "object",
+          "required": ["mode"],
+          "additionalProperties": false,
+          "properties": {
+            "mode": {"enum": ["page", "offset", "cursor", "none"]},
+            "param": {"type": "string"},
+            "start": {"type": ["integer", "string", "null"]},
+            "step": {"type": "integer", "minimum": 1},
+            "next_path": {"type": "string"},
+            "has_more_path": {"type": "string"},
+            "stop_on_empty": {"type": "boolean"},
+            "max_pages": {"type": "integer", "minimum": 1}
+          }
+        },
+        "evidence": {"type": "object"},
+        "notes": {"type": "string"}
+      }
+    }
+  }
+}

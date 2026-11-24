@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "mcp_version": "demo",
+  "exported_at": 1795511143871,
+  "include_sensitive": false,
+  "include_body": false,
+  "capture": {
+    "pattern": "*",
+    "dropped_requests": 0
+  },
+  "requests": [
+    {
+      "id": 1,
+      "url": "http://127.0.0.1:8799/api/session",
+      "method": "GET",
+      "resource_type": "xhr",
+      "request_headers": {
+        "User-Agent": "[REDACTED]",
+        "Accept": "[REDACTED]",
+        "Accept-Language": "[REDACTED]",
+        "Referer": "[REDACTED]",
+        "Sec-Fetch-Dest": "[REDACTED]",
+        "Sec-Fetch-Mode": "[REDACTED]",
+        "Sec-Fetch-Site": "[REDACTED]"
+      },
+      "request_post_data_error": null,
+      "timestamp": 1795511143263,
+      "status": 200,
+      "response_headers": {
+        "Server": "[REDACTED]",
+        "Date": "[REDACTED]",
+        "Content-Type": "[REDACTED]",
+        "Content-Length": "[REDACTED]",
+        "Set-Cookie": "[REDACTED]"
+      },
+      "duration": 12,
+      "state": "finished",
+      "headers_complete": true,
+      "capture_body_limit": 200000,
+      "body_state": "captured"
+    },
+    {
+      "id": 2,
+      "url": "http://127.0.0.1:8799/api/items?page=%5BREDACTED%5D&size=%5BREDACTED%5D&keyword=%5BREDACTED%5D&ts=%5BREDACTED%5D&nonce=%5BREDACTED%5D&token=%5BREDACTED%5D",
+      "method": "GET",
+      "resource_type": "xhr",
+      "request_headers": {
+        "User-Agent": "[REDACTED]",
+        "Accept": "[REDACTED]",
+        "Accept-Language": "[REDACTED]",
+        "Referer": "[REDACTED]",
+        "Sec-Fetch-Dest": "[REDACTED]",
+        "Sec-Fetch-Mode": "[REDACTED]",
+        "Sec-Fetch-Site": "[REDACTED]",
+        "X-Sign": "[REDACTED]",
+        "X-Client-Ver": "[REDACTED]",
+        "Cookie": "[REDACTED]"
+      },
+      "request_post_data_error": null,
+      "timestamp": 1795511143265,
+      "status": 200,
+      "response_headers": {
+        "Server": "[REDACTED]",
+        "Date": "[REDACTED]",
+        "Content-Type": "[REDACTED]",
+        "Content-Length": "[REDACTED]"
+      },
+      "duration": 12,
+      "state": "finished",
+      "headers_complete": true,
+      "capture_body_limit": 200000,
+      "body_state": "captured"
+    },
+    {
+      "id": 3,
+      "url": "http://127.0.0.1:8799/api/items?page=%5BREDACTED%5D&size=%5BREDACTED%5D&keyword=%5BREDACTED%5D&ts=%5BREDACTED%5D&nonce=%5BREDACTED%5D&token=%5BREDACTED%5D",
+      "method": "GET",
+      "resource_type": "xhr",
+      "request_headers": {
+        "User-Agent": "[REDACTED]",
+        "Accept": "[REDACTED]",
+        "Accept-Language": "[REDACTED]",
+        "Referer": "[REDACTED]",
+        "Sec-Fetch-Dest": "[REDACTED]",
+        "Sec-Fetch-Mode": "[REDACTED]",
+        "Sec-Fetch-Site": "[REDACTED]",
+        "X-Sign": "[REDACTED]",
+        "X-Client-Ver": "[REDACTED]",
+        "Cookie": "[REDACTED]"
+      },
+      "request_post_data_error": null,
+      "timestamp": 1795511143316,
+      "status": 200,
+      "response_headers": {
+        "Server": "[REDACTED]",
+        "Date": "[REDACTED]",
+        "Content-Type": "[REDACTED]",
+        "Content-Length": "[REDACTED]"
+      },
+      "duration": 12,
+      "state": "finished",
+      "headers_complete": true,
+      "capture_body_limit": 200000,
+      "body_state": "captured"
+    },
+    {
+      "id": 4,
+      "url": "http://127.0.0.1:8799/api/search",
+      "method": "POST",
+      "resource_type": "xhr",
+      "request_headers": {
+        "User-Agent": "[REDACTED]",
+        "Accept": "[REDACTED]",
+        "Accept-Language": "[REDACTED]",
+        "Referer": "[REDACTED]",
+        "Sec-Fetch-Dest": "[REDACTED]",
+        "Sec-Fetch-Mode": "[REDACTED]",
+        "Sec-Fetch-Site": "[REDACTED]",
+        "X-Sign": "[REDACTED]",
+        "X-Client-Ver": "[REDACTED]",
+        "Content-Type": "[REDACTED]",
+        "Cookie": "[REDACTED]"
+      },
+      "request_post_data_error": null,
+      "timestamp": 1795511143369,
+      "status": 200,
+      "response_headers": {
+        "Server": "[REDACTED]",
+        "Date": "[REDACTED]",
+        "Content-Type": "[REDACTED]",
+        "Content-Length": "[REDACTED]"
+      },
+      "duration": 12,
+      "state": "finished",
+      "headers_complete": true,
+      "capture_body_limit": 200000,
+      "body_state": "captured"
+    },
+    {
+      "id": 5,
+      "url": "http://127.0.0.1:8799/api/search",
+      "method": "POST",
+      "resource_type": "xhr",
+      "request_headers": {
+        "User-Agent": "[REDACTED]",
+        "Accept": "[REDACTED]",
+        "Accept-Language": "[REDACTED]",
+        "Referer": "[REDACTED]",
+        "Sec-Fetch-Dest": "[REDACTED]",
+        "Sec-Fetch-Mode": "[REDACTED]",
+        "Sec-Fetch-Site": "[REDACTED]",
+        "X-Sign": "[REDACTED]",
+        "X-Client-Ver": "[REDACTED]",
+        "Content-Type": "[REDACTED]",
+        "Cookie": "[REDACTED]"
+      },
+      "request_post_data_error": null,
+      "timestamp": 1795511143370,
+      "status": 200,
+      "response_headers": {
+        "Server": "[REDACTED]",
+        "Date": "[REDACTED]",
+        "Content-Type": "[REDACTED]",
+        "Content-Length": "[REDACTED]"
+      },
+      "duration": 12,
+      "state": "finished",
+      "headers_complete": true,
+      "capture_body_limit": 200000,
+      "body_state": "captured"
+    }
+  ]
+}

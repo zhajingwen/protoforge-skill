@@ -1,0 +1,14 @@
+ProtoForge Skill
+Copyright 2026 ProtoForge contributors
+
+This project is designed to work downstream of, and uses terminology from:
+
+- hello_js_reverse_skill (https://github.com/WhiteNightShadow/hello_js_reverse_skill),
+  Apache License 2.0. The success levels S0-S4, delivery routes R0-R6, result
+  classes (not_sent / transport_error / rejected / accepted / target_ok) and the
+  "chain A-K" problem routing referenced in SKILL.md and references/ are defined there.
+- camoufox-reverse-mcp (https://github.com/WhiteNightShadow/camoufox-reverse-mcp),
+  MIT License. `pf import` reads the JSON format produced by its
+  `export_network_capture` tool (schema_version 1).
+
+No source code from either project is included in this repository.

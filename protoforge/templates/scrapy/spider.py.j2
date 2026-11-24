@@ -1,0 +1,10 @@
+"""Spider for operation `{{ op_name }}` ({{ spec.operations[op_name].method }} {{ spec.operations[op_name].path }}).
+
+scrapy crawl {{ op_name }}{% for i in spec.operations[op_name].get("query", {}).items() if i[1].source == "input" %} -a {{ i[0] }}=...{% endfor %} -a max_pages=2
+"""
+from {{ name }}.base_spider import ProtoForgeSpider
+
+
+class Spider(ProtoForgeSpider):
+    name = {{ op_name | tojson }}
+    op = {{ op_name | tojson }}

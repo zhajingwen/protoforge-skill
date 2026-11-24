@@ -1,0 +1,8 @@
+id: fingerprint-before-signature
+skill: protoforge
+assertions:
+  - Agent runs or reasons through `pf fp-check` and identifies FP003 (Firefox UA with chrome131 impersonate) before touching the signer.
+  - Agent does not conclude "the signature algorithm expired" from a 403 alone; it states the failure layer is not yet determined.
+  - Agent proposes a single-variable comparison (restore firefox target, keep everything else) and respects result classification.
+  - Agent explains that switching to a Chrome fingerprint also requires a Chrome UA / client hints and possibly re-sampling signatures.
+  - Agent does not start a new reverse-engineering session before the transport hypothesis is checked.
