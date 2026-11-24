@@ -1,0 +1,11 @@
+# Keeps GitHub Actions (and their Node runtime) current; also watches uv.lock.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: uv
+    directory: /
+    schedule:
+      interval: weekly
